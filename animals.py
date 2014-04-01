@@ -3,8 +3,6 @@ import sqlite3
 
 class Animals():
     """docstring for Animals"""
-    life_expactancy = {}
-
     def __init__(self, species, age, name, gender, weight):
         self.species = species
         self.age = age
@@ -27,3 +25,8 @@ class Animals():
             conn = sqlite3.connect("animals.db")
             cursor = conn.cursor()
             #cursor.execute("UPDATE ? SET age= ? WHERE name = ?", ) ne dovarshen update
+
+    def __eq__(self, other):
+        return self.species == other.species and self.age == other.age
+               and self   .name == other.name and self.gender == other.gender and self.w    eight == other.weight)
+
