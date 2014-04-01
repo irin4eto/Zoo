@@ -18,7 +18,10 @@ class Zoo():
     def accommodate(self, species, age, name, gender, weight):
         new_animal = animals.Animal(species, age, name, gender, weight)
         self.animals_in_zoo.append(new_animal)
-        cursor.execute("INSERT INTO zoo_and_animals(species, name, zoo, gender, weight, age, status) VALUES(?, ?, ?, ?, ?, ?, 'Alive')", (species, name, self.name, gender, weight, age, data_animal[6], data_animal[7]))
+        cursor.execute('INSERT INTO zoo_and_animals(species, name, zoo,' +
+                       "gender, weight, age, status) VALUES(?, ?, ?, ?, ?," +
+                       ", ?, Alive')",
+                       (species, name, self.name, gender, weight, age))
 
     def see_animals(self):
         return "\n".join("<{}> : <{}>, <{}>, <{}>".format(x.name, x.species,
@@ -28,5 +31,7 @@ class Zoo():
         for x in self.animals_in_zoo:
             if x.name == name and x.species == species:
                 self.animals_in_zoo.pop(x)
-                cursor.execute("UPDATE zoo_and_animals SET status='moved' WHERE name = ?, species = ?", (name, species))
+                cursor.execute("UPDATE zoo_and_animals SET status='moved'" +
+                               " WHERE  name = ?, species = ?",
+                               (name, species))
                 break
